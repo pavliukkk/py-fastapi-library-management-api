@@ -6,7 +6,8 @@ import schemas
 from db import models
 
 
-def get_all_authors(db: Session, skip: int = Query(default=0, ge=0), limit: int = Query(default=5, ge=1, le=100)) -> list[models.DBAuthor]:
+def get_all_authors(db: Session, skip: int = Query(default=0, ge=0), limit: int = Query(default=5, ge=1, le=100)) -> \
+        list[models.DBAuthor]:
     statement = (
         select(models.DBAuthor)
         .offset(skip)
@@ -36,7 +37,8 @@ def create_author(db: Session, author: schemas.AuthorCreate) -> models.DBAuthor:
     return db_author
 
 
-def get_all_books(db: Session, skip: int = Query(default=0, ge=0), limit: int = Query(default=5, ge=1, le=100)) -> list[models.DBBook]:
+def get_all_books(db: Session, skip: int = Query(default=0, ge=0), limit: int = Query(default=5, ge=1, le=100)) -> list[
+    models.DBBook]:
     statement = (
         select(models.DBBook)
         .offset(skip)

@@ -14,6 +14,7 @@ class DBAuthor(Base):
     bio: Mapped[str] = mapped_column(nullable=False)
     books: Mapped[list["DBBook"]] = relationship(back_populates="author")
 
+
 class DBBook(Base):
     __tablename__ = "book"
 

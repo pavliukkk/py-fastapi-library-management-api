@@ -2,6 +2,7 @@ from datetime import date
 
 from pydantic import BaseModel, ConfigDict
 
+
 class AuthorBase(BaseModel):
     name: str
     bio: str
