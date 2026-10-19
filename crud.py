@@ -21,7 +21,7 @@ def get_author_by_id(db: Session, author_id: int) -> models.DBAuthor:
     return db.scalar(select(models.DBAuthor).where(models.DBAuthor.id == author_id))
 
 
-def get_author_by_name(db: Session, name: int) -> models.DBAuthor:
+def get_author_by_name(db: Session, name: str) -> models.DBAuthor:
     return db.scalar(select(models.DBAuthor).where(models.DBAuthor.name == name))
 
 
@@ -49,7 +49,7 @@ def get_all_books(db: Session, skip: int = Query(default=0, ge=0), limit: int = 
 
 
 def get_all_books_by_author_id(db: Session, author_id: int) -> list[models.DBBook]:
-    return db.scalar(select(models.DBBook).where(models.DBBook.author_id == author_id))
+    return db.scalars(select(models.DBBook).where(models.DBBook.author_id == author_id))
 
 
 def get_book_by_title(db: Session, title: str) -> models.DBBook:
