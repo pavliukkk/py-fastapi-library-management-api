@@ -49,16 +49,32 @@ def create_author(author: schemas.AuthorCreate, db: Annotated[Session, Depends(g
 
 
 @app.get("/books/")
-def read_books(db: Annotated[Session, Depends(get_db)], skip: int = 0, limit: int = 5):
-    return crud.get_all_books(db=db, skip=skip, limit=limit)
+def read_books(
+    db: Annotated[Session, Depends(get_db)],
+    author_id: int | None = None,
+    skip: int = 0,
+    limit: int = 5,
+):
+    return crud.get_all_books(
+        db=db,
+        author_id=author_id,
+        skip=skip,
+        limit=limit,
+    )
 
 
-@app.get("/books/{author_id}/", response_model=schemas.Book)
-def read_single_book(author_id: int, db: Annotated[Session, Depends(get_db)]):
-    db_book = crud.get_all_books_by_author_id(db=db, author_id=author_id)
+@app.get("/books/{book_id}/", response_model=schemas.Book)
+def read_single_book(
+    book_id: int,
+    db: Annotated[Session, Depends(get_db)],
+):
+    db_book = crud.get_book_by_id(db=db, book_id=book_id)
 
     if not db_book:
-        raise HTTPException(status_code=404, detail="Book not found")
+        raise HTTPException(
+            status_code=404,
+            detail="Book not found",
+        )
 
     return db_book
 
